@@ -1,6 +1,6 @@
 const API_BASE = 'http://localhost:8080/api';
 
-const createTableHead = (headers) => {
+const createTableHead = (headers: string[]) => {
   const thead = document.createElement('thead');
   const headerRow = document.createElement('tr');
 
@@ -14,7 +14,7 @@ const createTableHead = (headers) => {
   return thead;
 };
 
-const createTableBody = (headers, users) => {
+const createTableBody = (headers: string[], users: Record<string, string>[]) => {
   const tbody = document.createElement('tbody');
 
   users.forEach(user => {
@@ -28,11 +28,11 @@ const createTableBody = (headers, users) => {
 
     tbody.appendChild(row);
   });
-  
+
   return tbody;
 };
 
-const getUsersData = async () => {
+const getUsersData = async (): Promise<Record<string, string>[]> => {
   const url = API_BASE + '/users/getAll.php';
 
   try {
@@ -45,11 +45,11 @@ const getUsersData = async () => {
   }
 };
 
-const renderUsersTable = async () => {
+const renderUsersTable = async (): Promise<void> => {
   try {
     const users = await getUsersData();
-    const table = document.getElementById('users');
-      
+    const table = document.getElementById('users') as HTMLTableElement;
+
     const headers = Object.keys(users[0]);
     const thead = createTableHead(headers);
     table.appendChild(thead);
