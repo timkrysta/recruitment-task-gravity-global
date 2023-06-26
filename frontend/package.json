@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "sass ./src/styles/index.scss ./public/dist/styles/index.css"
+  },
   "devDependencies": {
     "sass": "^1.63.6",
     "tsc": "^2.0.4"
