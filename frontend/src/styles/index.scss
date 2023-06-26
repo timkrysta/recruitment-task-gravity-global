@@ -1,0 +1,26 @@
+// Variables
+$evenRowBgColor: #f2f2f2;
+$tableHeadBgColor: #04AA6D;
+$tableHeadTextColor: white;
+
+#users {
+    border-collapse: collapse;
+    width: 100%;
+
+    td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+        background-color: $evenRowBgColor;
+    }
+    
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: $tableHeadBgColor;
+        color: $tableHeadTextColor;
+    }
+}
