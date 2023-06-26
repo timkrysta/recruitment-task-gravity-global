@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Timkrysta\\GravityGlobal\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "timkrysta",
+            "email": "krystatymoteusz@gmail.com"
+        }
+    ]
+}
