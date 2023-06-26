@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "sass ./src/styles/index.scss ./public/dist/styles/index.css"
+    "build": "sass ./src/styles/index.scss ./public/dist/styles/index.css && tsc"
   },
   "devDependencies": {
     "sass": "^1.63.6",
