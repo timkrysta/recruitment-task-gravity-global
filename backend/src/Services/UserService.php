@@ -2,6 +2,8 @@
 
 namespace Timkrysta\GravityGlobal\Services;
 
+use Timkrysta\GravityGlobal\Models\User;
+
 class UserService
 {
     public static function createNewUser()
@@ -14,8 +16,9 @@ class UserService
         
     }
     
-    public static function getAllUsers()
+    public static function getAllUsers(): array
     {
-        
+        $users = User::all();
+        return $users;
     }
 }
