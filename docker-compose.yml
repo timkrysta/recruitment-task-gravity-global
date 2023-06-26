@@ -18,6 +18,13 @@ services:
     working_dir: /app
     volumes:
       - ./backend:/app 
+  
+  npm:
+    image: node:lts-alpine
+    command: sh -c "npm ci && npm run build"
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
 
   php-fpm:
     image: php:8.2.6-fpm
