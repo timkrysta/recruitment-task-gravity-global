@@ -49,6 +49,35 @@ class User
         return false;
     }
 
+    public static function create(array $newUserAttributes): bool
+    {
+        $file = self::getDataSourceFilePath();
+        $data = file_get_contents($file);
+        $users = json_decode($data, true);
+
+        array_push($users, $newUserAttributes);
+
+        $jsonData = json_encode($users);
+        file_put_contents($file, $jsonData);
+        return true;
+    }
+
+    public static function getLastestUserId(): int
+    {
+        $file = self::getDataSourceFilePath();
+        $data = file_get_contents($file);
+        $users = json_decode($data, true);
+
+        $largestUserId = 0;
+        foreach ($users as $user) {
+            if ($user['id'] > $largestUserId) {
+                $largestUserId = $user['id'];
+            }
+        }
+
+        return $largestUserId;
+    }
+
     /** 
      * Get the path of the file that contains data about users.
      *
