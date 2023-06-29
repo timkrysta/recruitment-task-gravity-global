@@ -20,7 +20,7 @@ const createTableHead = (headers: string[]) => {
 
 const getDeleteButton = (userId: string) => {
   const button = document.createElement('button');
-  button.textContent = 'Delete';
+  button.textContent = 'Remove';
   const deleteButtonHandler = async () => {
     const url = API_BASE + '/users/deleteById.php';
     try {
