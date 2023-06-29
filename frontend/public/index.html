@@ -10,7 +10,43 @@
 <body>
 
 <main>
-  <table id="users"></table>
+  <section>
+    <h2>
+      Create user form
+    </h2>
+    <form action="/api/users/create.php" method="POST">
+      <div class="mb-3">
+        <label for="name">name</label>
+        <input id="name" name="name">
+      </div>
+      <div class="mb-3">
+        <label for="username">username</label>
+        <input id="username" name="username">
+      </div>
+      <div class="mb-3">
+        <label for="email">email</label>
+        <input id="email" name="email">
+      </div>
+      <div class="mb-3">
+        <label for="address">address</label>
+        <input id="address" name="address">
+      </div>
+      <div class="mb-3">
+        <label for="phone">phone</label>
+        <input id="phone" name="phone">
+      </div>
+      <div class="mb-3">
+        <label for="company">company</label>
+        <input id="company" name="company">
+      </div>
+      <button type="submit">
+        Create new user
+      </button>
+    </form>
+  </section>
+  <section>
+    <table id="users"></table>
+  </section>
 </main>
 
 <script src="dist/scripts/main.js"></script>
