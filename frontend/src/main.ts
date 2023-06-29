@@ -9,9 +9,38 @@ const createTableHead = (headers: string[]) => {
     th.textContent = header;
     headerRow.appendChild(th);
   });
+  
+  // Empty for action button
+  const th = document.createElement('th');
+  headerRow.appendChild(th);
 
   thead.appendChild(headerRow);
   return thead;
+};
+
+const getDeleteButton = (userId: string) => {
+  const button = document.createElement('button');
+  button.textContent = 'Delete';
+  const deleteButtonHandler = async () => {
+    const url = API_BASE + '/users/deleteById.php';
+    try {
+      const response = await fetch(url, { 
+        method: 'POST',
+        body: JSON.stringify({
+          userId: userId,
+        }),
+      });
+      //const data = await response.json();
+      if (response.ok) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log('Error:', error);
+      throw error;
+    }
+  };
+  button.addEventListener('click', deleteButtonHandler);
+  return button;
 };
 
 const createTableBody = (headers: string[], users: Record<string, string>[]) => {
@@ -25,6 +54,12 @@ const createTableBody = (headers: string[], users: Record<string, string>[]) => 
       cell.textContent = user[header];
       row.appendChild(cell);
     });
+
+    const additionalCell = document.createElement('td');
+    if (user['id']) {
+      additionalCell.appendChild(getDeleteButton(user['id']));
+    }
+    row.appendChild(additionalCell);
 
     tbody.appendChild(row);
   });
