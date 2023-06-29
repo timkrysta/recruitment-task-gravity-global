@@ -62,7 +62,7 @@ class User
         return true;
     }
 
-    public static function getLastestUserId(): int
+    public static function getLatestUserId(): int
     {
         $file = self::getDataSourceFilePath();
         $data = file_get_contents($file);
