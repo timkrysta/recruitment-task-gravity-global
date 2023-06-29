@@ -17,6 +17,17 @@ class User
         $users = json_decode($data);
         return $users;
     }
+    
+    /**
+     * Delete an user by Id
+     *
+     * @param  mixed $userId
+     * @return void
+     */
+    public static function deleteById(int $userId): void
+    {
+        
+    }
 
     /** 
      * Get the path of the file that contains data about users.
