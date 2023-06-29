@@ -62,20 +62,19 @@ class User
         return true;
     }
 
+    /**
+     * The best implementation (that meets the requirement of storing data in a file instead of a database) I could come up still has a O(n) time complexity.
+     * However it does not use any PHP loop to utilize built-in functions that underthehood are written in C which is more effiicient.
+     */
     public static function getLatestUserId(): int
     {
         $file = self::getDataSourceFilePath();
         $data = file_get_contents($file);
         $users = json_decode($data, true);
 
-        $largestUserId = 0;
-        foreach ($users as $user) {
-            if ($user['id'] > $largestUserId) {
-                $largestUserId = $user['id'];
-            }
-        }
-
-        return $largestUserId;
+        $usersIds = array_column($users, 'id');
+        
+        return max($usersIds);
     }
 
     /** 
