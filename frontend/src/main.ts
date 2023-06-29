@@ -79,6 +79,53 @@ const getUsersData = async (): Promise<Record<string, string>[]> => {
   }
 };
 
+const convertToURLParams = (jsonObj: { [key: string]: any }) => {
+  const params = [];
+  
+  for (const key in jsonObj) {
+    if (jsonObj.hasOwnProperty(key)) {
+      const value = jsonObj[key];
+      params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+    }
+  }
+  
+  return params.join('&');
+};
+
+const submitHandler = async (e: SubmitEvent) => {
+  e.preventDefault();
+
+  const url = createNewUserForm.action;
+
+  const formData = new FormData(createNewUserForm);
+
+  // TODO(tim): repair the formData.entries() warning and remove below workaround
+  //const data = Object.fromEntries(formData.entries());
+
+  const data: { [key: string]: any } = {};
+  formData.forEach((value, key) => {
+    data[key] = value;
+  });
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: convertToURLParams(data),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
+    if (response.status === 201) {
+      window.location.reload();
+    } else {
+      alert('failed');
+    }
+  } catch (error) {
+    console.log('Error:', error);
+    throw error;
+  }
+
+  // submit the request manually
+};
+
 const renderUsersTable = async (): Promise<void> => {
   try {
     const users = await getUsersData();
@@ -96,3 +143,7 @@ const renderUsersTable = async (): Promise<void> => {
 };
 
 renderUsersTable();
+
+
+const createNewUserForm = document.getElementById('createUser') as HTMLFormElement;
+createNewUserForm.addEventListener('submit', submitHandler)
