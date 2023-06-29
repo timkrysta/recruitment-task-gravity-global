@@ -12,9 +12,15 @@ class UserService
         
     }
     
-    public static function deleteUserById(int $userId)
+    public static function deleteUserById(): bool
     {
-        
+        Api::exitIfRequestMethodNotSupported(['POST']);
+
+        if (empty($_POST['userId'])) {
+            return false;
+        }
+
+        return User::deleteById($_POST['userId']);
     }
     
     public static function getAllUsers(): array
