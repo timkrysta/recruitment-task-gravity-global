@@ -14,7 +14,7 @@ class User
     public static function all(): array
     {
         $data = file_get_contents(self::getDataSourceFilePath());
-        $users = json_decode($data);
+        $users = json_decode($data, true);
         return $users;
     }
     
@@ -26,9 +26,7 @@ class User
      */
     public static function deleteById(int $userId): bool
     {
-        $file = self::getDataSourceFilePath();
-        $data = file_get_contents($file);
-        $users = json_decode($data, true);
+        $users = self::all();
 
         $index = null;
         foreach ($users as $key => $user) {
@@ -42,6 +40,7 @@ class User
         if ($index !== null) {
             array_splice($users, $index, 1);
             $jsonData = json_encode($users);
+            $file = self::getDataSourceFilePath();
             file_put_contents($file, $jsonData);
             return true;
         }
@@ -51,13 +50,12 @@ class User
 
     public static function create(array $newUserAttributes): bool
     {
-        $file = self::getDataSourceFilePath();
-        $data = file_get_contents($file);
-        $users = json_decode($data, true);
+        $users = self::all();
 
         array_push($users, $newUserAttributes);
 
         $jsonData = json_encode($users);
+        $file = self::getDataSourceFilePath();
         file_put_contents($file, $jsonData);
         return true;
     }
@@ -68,9 +66,7 @@ class User
      */
     public static function getLatestUserId(): int
     {
-        $file = self::getDataSourceFilePath();
-        $data = file_get_contents($file);
-        $users = json_decode($data, true);
+        $users = self::all();
 
         $usersIds = array_column($users, 'id');
         
