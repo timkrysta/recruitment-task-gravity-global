@@ -92,6 +92,33 @@ const convertToURLParams = (jsonObj: { [key: string]: any }) => {
   return params.join('&');
 };
 
+const createList = (strings: string[]): HTMLUListElement => {
+  const ul = document.createElement('ul');
+  
+  strings.forEach((str) => {
+    const li = document.createElement('li');
+    li.textContent = str;
+    ul.appendChild(li);
+  });
+  
+  return ul;
+}
+
+const displayErrors = (errors: { [fieldId: string]: string[] }) => {
+  for (const fieldId in errors) {
+    const fieldErrors = errors[fieldId];
+    
+    console.log(`Field with id="${fieldId}" has errors:`, fieldErrors);
+    
+    const ul = createList(fieldErrors);
+    ul.style.color = 'red';
+    const input = document.getElementById(fieldId);
+    if (input) {
+      input.parentElement?.appendChild(ul);
+    }
+  }
+};
+
 const submitHandler = async (e: SubmitEvent) => {
   e.preventDefault();
 
@@ -116,7 +143,8 @@ const submitHandler = async (e: SubmitEvent) => {
     if (response.status === 201) {
       window.location.reload();
     } else {
-      alert('failed');
+      const data = await response.json();
+      displayErrors(data.error);
     }
   } catch (error) {
     console.log('Error:', error);
