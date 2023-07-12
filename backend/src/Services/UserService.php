@@ -4,6 +4,9 @@ namespace Timkrysta\GravityGlobal\Services;
 
 use Timkrysta\GravityGlobal\Api;
 use Timkrysta\GravityGlobal\Models\User;
+use Timkrysta\GravityGlobal\Response;
+use Timkrysta\GravityGlobal\Sanitizer;
+use Timkrysta\GravityGlobal\Validator;
 
 class UserService
 {
@@ -11,9 +14,25 @@ class UserService
     {
         Api::exitIfRequestMethodNotSupported(['POST']);
 
-        $lastId = User::getLatestUserId();
+        $validationRules = [
+            'name' => ['required', 'string', 'alpha_dash'],
+            'username' => ['required', 'string', 'unique'],
+            'email' => ['required', 'email', 'unique'],
+            'address' => ['array'],
+            'address.street' => ['required', 'string'],
+            'address.suite' => ['required', 'string'],
+            'address.city' => ['required', 'string'],
+            'address.zipcode' => ['required', 'string'],
+            'website' => ['sometimes', 'url'],
+            'company' => ['array'],
+            'company.name' => ['required', 'string'],
+            'company.catchPhrase' => ['sometimes', 'string'],
+            'company.bs' => ['sometimes', 'string'],
+        ];
 
-        User::create([
+        $lastId = User::getLatestUserId();
+        
+        $data = [
             'id' => $lastId + 1,
             'name' => $_POST['name'],
             'username' => $_POST['username'],
@@ -36,7 +55,17 @@ class UserService
                 'catchPhrase' => "Multi-layered client-server neural-net",
                 'bs' => "harness real-time e-markets",
             ], */
-        ]);
+        ];
+
+        $validator = new Validator($data, $validationRules);
+        
+        if (! $validator->validate()) {
+            Response::validationFailed($validator->errors());
+        }
+
+        $data = Sanitizer::sanitize($data);
+
+        User::create($data);
 
         return true;
     }
