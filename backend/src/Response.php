@@ -14,4 +14,15 @@ class Response
         echo json_encode($data);
         exit();
     }
+
+    /**
+     * Return Validation Failed JSON response and exit
+     */
+    public static function validationFailed(array $errors): void
+    {
+        self::json([
+            'message' => 'Validation Failed',
+            'error' => $errors,
+        ], 422);
+    }
 }
