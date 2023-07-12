@@ -124,11 +124,10 @@ class Validator
     {
         $users = User::all();
 
-        foreach ($users as $user) {
-            if ($user[$field] == $value) {
-                $this->addError($field, "The {$field} has already been taken.");   
-                return;
-            }
+        $arrayOfUsersFieldValues = array_column($users, $field);
+
+        if (array_search($value, $arrayOfUsersFieldValues) !== false) {
+            $this->addError($field, "The {$field} has already been taken.");
         }
     }
 
