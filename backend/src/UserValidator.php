@@ -15,7 +15,7 @@ class UserValidator
             'address.suite' => ['required', 'string'],
             'address.city' => ['required', 'string'],
             'address.zipcode' => ['required', 'string'],
-            'website' => ['sometimes', 'url'],
+            'website' => ['sometimes', 'string'],
             'company' => ['array'],
             'company.name' => ['required', 'string'],
             'company.catchPhrase' => ['sometimes', 'string'],

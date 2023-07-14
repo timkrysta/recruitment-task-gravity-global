@@ -36,9 +36,6 @@ use Timkrysta\GravityGlobal\Models\User;
  * sometimes
  * In some situations, you may wish to run validation checks against a field only if that field is present in the data being validated.
  * -----------------------------------------------------------------------------
- * url
- * The field under validation must be a valid URL.
- * -----------------------------------------------------------------------------
  */
 class Validator
 {
@@ -142,13 +139,6 @@ class Validator
     {
         if (!is_array($value)) {
             $this->addError($field, "The {$field} field must be an array.");
-        }
-    }
-
-    private function validateUrl($field, $value)
-    {
-        if (!filter_var($value, FILTER_VALIDATE_URL)) {
-            $this->addError($field, "The {$field} field must be a valid URL.");
         }
     }
 }
