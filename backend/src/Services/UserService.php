@@ -6,7 +6,7 @@ use Timkrysta\GravityGlobal\Api;
 use Timkrysta\GravityGlobal\Models\User;
 use Timkrysta\GravityGlobal\Response;
 use Timkrysta\GravityGlobal\Sanitizer;
-use Timkrysta\GravityGlobal\Validator;
+use Timkrysta\GravityGlobal\UserValidator;
 
 class UserService
 {
@@ -14,26 +14,8 @@ class UserService
     {
         Api::exitIfRequestMethodNotSupported(['POST']);
 
-        $validationRules = [
-            'name' => ['required', 'string', 'alpha_dash'],
-            'username' => ['required', 'string', 'alpha_dash', 'unique'],
-            'email' => ['required', 'email', 'unique'],
-            'address' => ['array'],
-            'address.street' => ['required', 'string'],
-            'address.suite' => ['required', 'string'],
-            'address.city' => ['required', 'string'],
-            'address.zipcode' => ['required', 'string'],
-            'website' => ['sometimes', 'url'],
-            'company' => ['array'],
-            'company.name' => ['required', 'string'],
-            'company.catchPhrase' => ['sometimes', 'string'],
-            'company.bs' => ['sometimes', 'string'],
-        ];
-
-        $lastId = User::getLatestUserId();
-        
         $data = [
-            'id' => $lastId + 1,
+            'id' => User::getLatestUserId() + 1,
             'name' => $_POST['name'],
             'username' => $_POST['username'],
             'email' => $_POST['email'],
@@ -57,7 +39,7 @@ class UserService
             ], */
         ];
 
-        $validator = new Validator($data, $validationRules);
+        $validator = UserValidator::getStoreRequestValidator($data);
         
         if (! $validator->validate()) {
             Response::validationFailed($validator->errors());
