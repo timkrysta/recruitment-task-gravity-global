@@ -20,6 +20,7 @@ class UserService
             'username' => $_POST['username'],
             'email' => $_POST['email'],
             'phone' => $_POST['phone'],
+            'website' => $_POST['website'],
             'address' => $_POST['address'],
             'company' => $_POST['company'],
             /* 'address' => [
@@ -56,11 +57,17 @@ class UserService
     {
         Api::exitIfRequestMethodNotSupported(['POST']);
 
-        if (empty($_POST['userId'])) {
-            return false;
+        $data = [
+            'id' => $_POST['userId'],
+        ];
+
+        $validator = UserValidator::getDeleteRequestValidator($data);
+        
+        if (! $validator->validate()) {
+            Response::validationFailed($validator->errors());
         }
 
-        return User::deleteById($_POST['userId']);
+        return User::deleteById($data['id']);
     }
     
     public static function getAllUsers(): array

@@ -24,4 +24,13 @@ class UserValidator
 
         return new Validator($data, $validationRules);
     }
+
+    public static function getDeleteRequestValidator(array $data): Validator
+    {
+        $validationRules = [
+            'id' => ['required', 'numeric'],
+        ];
+
+        return new Validator($data, $validationRules);        
+    }
 }
