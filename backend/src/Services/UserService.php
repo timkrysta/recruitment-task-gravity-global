@@ -16,7 +16,7 @@ class UserService
 
         $validationRules = [
             'name' => ['required', 'string', 'alpha_dash'],
-            'username' => ['required', 'string', 'unique'],
+            'username' => ['required', 'string', 'alpha_dash', 'unique'],
             'email' => ['required', 'email', 'unique'],
             'address' => ['array'],
             'address.street' => ['required', 'string'],

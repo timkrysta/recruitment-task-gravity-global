@@ -52,6 +52,13 @@ final class StoreApiTest extends ApiTest
         } catch (ClientException $e) {
             $this->assertSame(422, $e->getResponse()->getStatusCode());
         }
+
+        // Invalid chars
+        try {
+            $response = $this->addUser([ 'username' => '?<ntaoehun' ]);
+        } catch (ClientException $e) {
+            $this->assertSame(422, $e->getResponse()->getStatusCode());
+        }
         
         // Not unique
         $uniqueUsername = 'unique_username' . uniqid();
