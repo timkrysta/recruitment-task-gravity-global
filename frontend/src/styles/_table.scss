@@ -1,0 +1,22 @@
+#users {
+    border-collapse: collapse;
+    width: 100%;
+
+    td, th {
+        border: 1px solid #ddd;
+        padding: $tablePadding;
+    }
+    
+    tr:nth-child(even) {
+        background-color: $tableEvenRowBgColor;
+    }
+    
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: $tableHeadBgColor;
+        color: $tableHeadTextColor;
+    }
+}
+
