@@ -1,5 +1,25 @@
 const API_BASE = 'http://localhost:8080/api';
 
+interface User {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+  };
+  company: {
+    name: string;
+    catchPhrase?: string;
+    bs?: string;
+  };
+  website?: string;
+};
+
 const createTableHead = (headers: string[]) => {
   const thead = document.createElement('thead');
   const headerRow = document.createElement('tr');
@@ -18,7 +38,7 @@ const createTableHead = (headers: string[]) => {
   return thead;
 };
 
-const getDeleteButton = (userId: string) => {
+const getDeleteButton = (userId: number) => {
   const button = document.createElement('button');
   button.textContent = 'Remove';
   const deleteButtonHandler = async () => {
@@ -42,15 +62,25 @@ const getDeleteButton = (userId: string) => {
   return button;
 };
 
-const createTableBody = (headers: string[], users: Record<string, string>[]) => {
+const createTableBody = (headers: (keyof User)[], users: User[]) => {
   const tbody = document.createElement('tbody');
 
   users.forEach(user => {
     const row = document.createElement('tr');
 
-    headers.forEach(header => {
+    headers.forEach((header) => {
       const cell = document.createElement('td');
-      cell.textContent = user[header];
+
+      if (header === 'address') {
+        const address = user[header];
+        cell.textContent = `${address.street}, ${address.zipcode} ${address.city}`;
+      } else if (header === 'company') {
+        const company = user[header];
+        cell.textContent = company.name;
+      } else {
+        cell.textContent = String(user[header]);
+      }
+
       row.appendChild(cell);
     });
 
@@ -66,7 +96,7 @@ const createTableBody = (headers: string[], users: Record<string, string>[]) => 
   return tbody;
 };
 
-const getUsersData = async (): Promise<Record<string, string>[]> => {
+const getUsersData = async (): Promise<User[]> => {
   const url = API_BASE + '/users/getAll.php';
 
   try {
@@ -156,10 +186,10 @@ const submitHandler = async (e: SubmitEvent) => {
 
 const renderUsersTable = async (): Promise<void> => {
   try {
-    const users = await getUsersData();
+    const users: User[] = await getUsersData();
     const table = document.getElementById('users') as HTMLTableElement;
 
-    const headers = Object.keys(users[0]);
+    const headers = Object.keys(users[0]) as (keyof User)[];
     const thead = createTableHead(headers);
     table.appendChild(thead);
 
