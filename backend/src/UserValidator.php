@@ -10,6 +10,7 @@ class UserValidator
             'name' => ['required', 'string', 'alpha_dash'],
             'username' => ['required', 'string', 'alpha_dash', 'unique'],
             'email' => ['required', 'email', 'unique'],
+            'phone' => ['required', 'string'],
             'address' => ['array'],
             'address.street' => ['required', 'string'],
             'address.suite' => ['required', 'string'],

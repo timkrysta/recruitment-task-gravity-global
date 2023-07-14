@@ -91,6 +91,16 @@ final class StoreApiTest extends ApiTest
         }
     }
     
+    public function test_validation_fails_invaild_phone(): void
+    {
+        // Empty
+        try {
+            $response = $this->addUser([ 'phone' => '' ]);
+        } catch (ClientException $e) {
+            $this->assertSame(422, $e->getResponse()->getStatusCode());
+        }
+    }
+    
     public function test_validation_fails_invaild_address(): void
     {
         // Empty
