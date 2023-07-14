@@ -39,7 +39,7 @@ class ApiTest extends TestCase
                 ]
             ],
             "phone" => "1-770-736-8031 x56442",
-            "website" => "hildegard.org",
+            "website" => "https://hildegard.org",
             "company" => [
                 "name" => "Romaguera-Crona",
                 "catchPhrase" => "Multi-layered client-server neural-net",
@@ -56,6 +56,17 @@ class ApiTest extends TestCase
     {
         $response = $this->client->post(self::STORE_API_ENDPOINT, [
             'form_params' => $this->getUser($attributes),
+            'debug' => true,
+        ]);
+        return $response;
+    }
+
+    protected function deleteUser(int|null $userId)
+    {
+        $response = $this->client->post(self::DELETE_API_ENDPOINT, [
+            'form_params' => [
+                'userId' => $userId,
+            ],
             'debug' => true,
         ]);
         return $response;
