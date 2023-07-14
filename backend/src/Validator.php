@@ -56,17 +56,13 @@ class Validator
         foreach ($this->rules as $field => $rules) {
             $value = $this->getValue($field);
 
-            foreach ($rules as $rule) {
-                if ($rule === 'sometimes' && $value === null) break;
-
-                $ruleParts = explode(':', $rule);
-                $ruleName = $ruleParts[0];
-                $parameters = isset($ruleParts[1]) ? explode(',', $ruleParts[1]) : [];
+            foreach ($rules as $ruleName) {
+                if ($ruleName === 'sometimes' && $value === null) break;
 
                 $method = 'validate' . ucfirst($ruleName);
 
                 if (method_exists($this, $method)) {
-                    $this->$method($field, $value, $parameters);
+                    $this->$method($field, $value);
                 }
             }
         }
