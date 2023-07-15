@@ -10,7 +10,7 @@ final class DeleteApiTest extends ApiTest
     public function test_delete_user_success(): void
     {
         try {
-            $response = $this->addUser();
+            $this->addUser();
             $lastId = User::getLatestUserId();
             $this->deleteUser($lastId);
             $newLastId = User::getLatestUserId();
@@ -23,7 +23,7 @@ final class DeleteApiTest extends ApiTest
     public function test_empty_store_request_fails(): void
     {
         try {
-            $response = $this->addUser();
+            $this->addUser();
             $this->deleteUser(null);
         } catch (ClientException $e) {
             $this->assertSame(422, $e->getResponse()->getStatusCode());
