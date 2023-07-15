@@ -80,7 +80,7 @@ class User
      */
     private static function getDataSourceFilePath(): string
     {
-        $dataSource = __DIR__ . '/../../dataset/' . self::DATA_SOURCE_FILENAME;
+        $dataSource = __DIR__.'/../../dataset/'.self::DATA_SOURCE_FILENAME;
         return $dataSource;
     }
 }

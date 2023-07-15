@@ -59,7 +59,7 @@ class Validator
             foreach ($rules as $ruleName) {
                 if ($ruleName === 'sometimes' && $value === null) break;
 
-                $method = 'validate' . ucfirst($ruleName);
+                $method = 'validate'.ucfirst($ruleName);
 
                 if (method_exists($this, $method)) {
                     $this->$method($field, $value);

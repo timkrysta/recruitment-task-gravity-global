@@ -3,7 +3,7 @@
 use Timkrysta\GravityGlobal\Response;
 use Timkrysta\GravityGlobal\Services\UserService;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__.'/../../vendor/autoload.php';
 
 if (UserService::createNewUser()) {
     Response::json(['message' => 'Success'], 201);
