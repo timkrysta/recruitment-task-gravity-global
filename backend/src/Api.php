@@ -17,7 +17,7 @@ class Api
         }
 
         Response::json([
-            'message' => 'Method Not Allowed. This route supports only ' . implode(', ', $supportedMethods) . '.'
+            'message' => 'Method Not Allowed. This route supports only '.implode(', ', $supportedMethods).'.'
         ], 405);
     }
 }
