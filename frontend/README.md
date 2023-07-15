@@ -11,5 +11,10 @@ Because I have written frontend in TS we need to compile it before it will be se
 cd ./frontend && npm run build
 ```
 
+Alternatively, you can use docker by just executing:
+```sh
+docker-compose up
+```
+
 ## Author
 [Tymoteusz Krysta](https://www.linkedin.com/in/tim-krysta/) - krystatymoteusz@gmail.com

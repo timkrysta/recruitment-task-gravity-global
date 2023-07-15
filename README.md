@@ -15,6 +15,12 @@ To keep this task free from dependencies I have decided to stick with primitive 
 
 Additionally in a real-world scenario, the operation of deleting a user from the data source would be more efficient than the current O(n) if we were to utilize a database instead of reading/writing from/to a file.
 
+## Installing and running
+I have made a docker-compose.yml config so the app is not dependent on any environment:
+```sh
+docker-compose up
+```
+
 ## Hands on keyboard time
 - 2023-06-26
     - 13:15 - 17:09
