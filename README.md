@@ -7,6 +7,9 @@ I have decided to create a separate backend API in PHP that will be utilized by 
 
 Such an approach is better than monolith because it's modular; We can replace the whole frontend without affecting our backend or reverse.
 
+## Demo
+I have hosted it on my private server for you: [gravity-global.timkrysta.com/](https://gravity-global.timkrysta.com:8080/)
+
 ## Notes
 To keep this task free from dependencies I have decided to stick with primitive file-based routing. In a real-world scenario, I would make a Router and create a routes.php where we could store all endpoints and associate a controller's method to it.
 
