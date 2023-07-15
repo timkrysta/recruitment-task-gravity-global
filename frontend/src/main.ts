@@ -1,28 +1,5 @@
-const API_BASE = 'http://localhost:8080/api';
-
-interface Address {
-  street: string;
-  suite: string;
-  city: string;
-  zipcode: string;
-}
-
-interface Company {
-  name: string;
-  catchPhrase?: string;
-  bs?: string;
-}
-
-interface User {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  address: Address;
-  company: Company;
-  website?: string;
-}
+import { DELETE_API_ENDPOINT, GET_API_ENDPOINT, createUserFormId, usersTableId } from "./config/main";
+import { Address, Company, User } from "./interfaces/UserInterfaces";
 
 class TableRenderer {
   private headers: (keyof User)[];
@@ -55,10 +32,8 @@ class TableRenderer {
     button.textContent = 'Remove';
 
     const deleteButtonHandler = async () => {
-      const url = `${API_BASE}/users/deleteById.php`;
-
       try {
-        const response = await fetch(url, {
+        const response = await fetch(DELETE_API_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: `userId=${userId}`,
@@ -112,7 +87,7 @@ class TableRenderer {
   }
 
   public renderTable(): void {
-    const table = document.getElementById('users') as HTMLTableElement;
+    const table = document.getElementById(usersTableId) as HTMLTableElement;
     const thead = this.createTableHead();
     const tbody = this.createTableBody();
 
@@ -202,10 +177,8 @@ class UserForm {
 }
 
 const getUsersData = async (): Promise<User[]> => {
-  const url = `${API_BASE}/users/getAll.php`;
-
   try {
-    const response = await fetch(url);
+    const response = await fetch(GET_API_ENDPOINT);
     const users = await response.json();
     return users;
   } catch (error) {
@@ -225,5 +198,5 @@ const renderUsersTable = async (): Promise<void> => {
   }
 };
 
-const userForm = new UserForm('createUser');
+new UserForm(createUserFormId);
 renderUsersTable();
