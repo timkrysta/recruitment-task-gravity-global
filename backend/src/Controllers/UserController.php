@@ -16,13 +16,13 @@ class UserController
 
         $data = [
             'id' => User::getLatestUserId() + 1,
-            'name' => $_POST['name'],
-            'username' => $_POST['username'],
-            'email' => $_POST['email'],
-            'phone' => $_POST['phone'],
-            'website' => $_POST['website'],
-            'address' => $_POST['address'],
-            'company' => $_POST['company'],
+            'name' => $_POST['name'] ?? null,
+            'username' => $_POST['username'] ?? null,
+            'email' => $_POST['email'] ?? null,
+            'phone' => $_POST['phone'] ?? null,
+            'website' => $_POST['website'] ?? null,
+            'address' => $_POST['address'] ?? null,
+            'company' => $_POST['company'] ?? null,
         ];
 
         $validator = UserValidator::getStoreRequestValidator($data);
@@ -43,7 +43,7 @@ class UserController
         Api::exitIfRequestMethodNotSupported(['POST']);
 
         $data = [
-            'id' => $_POST['userId'],
+            'id' => $_POST['userId'] ?? null,
         ];
 
         $validator = UserValidator::getDeleteRequestValidator($data);
