@@ -1,6 +1,6 @@
 <?php
 
-namespace Timkrysta\GravityGlobal\Services;
+namespace Timkrysta\GravityGlobal\Controllers;
 
 use Timkrysta\GravityGlobal\Api;
 use Timkrysta\GravityGlobal\Models\User;
@@ -8,9 +8,9 @@ use Timkrysta\GravityGlobal\Response;
 use Timkrysta\GravityGlobal\Sanitizer;
 use Timkrysta\GravityGlobal\UserValidator;
 
-class UserService
+class UserController
 {
-    public static function createNewUser(): bool
+    public static function createNewUser()
     {
         Api::exitIfRequestMethodNotSupported(['POST']);
 
@@ -35,10 +35,10 @@ class UserService
 
         User::create($data);
 
-        return true;
+        Response::json(['message' => 'Success'], 201);
     }
     
-    public static function deleteUserById(): bool
+    public static function deleteUserById()
     {
         Api::exitIfRequestMethodNotSupported(['POST']);
 
@@ -52,13 +52,19 @@ class UserService
             Response::validationFailed($validator->errors());
         }
 
-        return User::deleteById($data['id']);
+        if (User::deleteById($data['id'])) {
+            Response::json(['message' => 'Success']);
+        } else {
+            Response::json(['message' => 'Error: operation unsuccessful'], 400);
+        }
     }
     
-    public static function getAllUsers(): array
+    public static function returnAllUsers()
     {
         Api::exitIfRequestMethodNotSupported(['GET']);
+
         $users = User::all();
-        return $users;
+
+        Response::json($users);
     }
 }
