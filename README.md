@@ -3,14 +3,14 @@
 <img src="https://github.com/laravel/sanctum/workflows/tests/badge.svg" alt="Build Status" style="max-width: 100%;">
 
 ## Architecture
-I have decided to create a separate backend API in PHP that will be utilized by frontend done in TypeScript and styles in Sass.
+I have decided to create a separate backend API in PHP that will be utilized by the frontend done in TypeScript and styles in Sass.
 
-Such approach is better that monolith because it's modular; We can replace whole frontend without affecting our backend or reverse.
+Such an approach is better than monolith because it's modular; We can replace the whole frontend without affecting our backend or reverse.
 
 ## Notes
-To keep this task free from dependencies I have decided to stick with primitive file based routing. In real world scenario I would make a Router and create a `routes.php` where we could store all endpoints and associate a controller's method to it.
+To keep this task free from dependencies I have decided to stick with primitive file-based routing. In a real-world scenario, I would make a Router and create a routes.php where we could store all endpoints and associate a controller's method to it.
 
-Additionally in a real world scenario the operation of deleting a user from the data source would would be more efficient that current O(n) if we were to utilize a database instead of reading/writing from/to a file.
+Additionally in a real-world scenario, the operation of deleting a user from the data source would be more efficient than the current O(n) if we were to utilize a database instead of reading/writing from/to a file.
 
 ## Hands on keyboard time
 - 2023-06-26
@@ -23,7 +23,7 @@ Additionally in a real world scenario the operation of deleting a user from the 
 - 2023-07-14
     - 15:35 - 17:51
 - 2023-07-15
-    - 10:13 - 
+    - 10:13 - 11:39
 
 
 ## Author
